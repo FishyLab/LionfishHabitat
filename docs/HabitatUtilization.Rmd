@@ -1,6 +1,6 @@
 ---
 title: Ontogenetic Migration and Habitat Selection by Invasive Lionfish
-author: "ALisha Naidu"
+author: "Alisha Naidu"
 date: "last updated on `r Sys.Date()`"
 output: 
   html_document:
@@ -8,11 +8,6 @@ output:
       toc_float: yes
       toc: yes
 ---
- 
-Alisha Naidu[1], Juan Carlos Villaseñor-Derbez[2]
-[1] Lynbrook High School, 1280 Johnson Avenue, San Jose, CA 95129  </center>
-alisha415naidu@gmail.com
-[2] Bren School of Environmental Science and Management, University of California, Santa Barbara, CA 93106
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
