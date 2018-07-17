@@ -1,27 +1,137 @@
 ---
-title: "Lionfish Habitat Utilization"
-author: "Alisha Naidu"
-date: "7/17/2018"
-output: html_document
+title: <center>Ontogenetic Migration and Habitat Selection by Invasive Lionfish</center>
+author: ""
+date: ""
+output: 
+  html_document:
+      code_folding: hide
+      toc_float: yes
+      toc: yes
 ---
+ 
+<center>Alisha Naidu^1^, Juan Carlos Villaseñor-Derbez^2^  </center>
+<center>^1^*Lynbrook High School, 1280 Johnson Avenue, San Jose, CA 95129*  </center>
+<center>*alisha415naidu@gmail.com*  </center>
+<center>^2^*Bren School of Environmental Science and Management, University of California, Santa Barbara, CA 93106*  </center>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Abstract
-abstract here
+The introduction of invasive lionfish into the Western Atlantic has greatly reduced local fish populations through predation, representing a major threat to native organisms and ecosystem managers alike. Although observational evidence suggests that lionfish size increases with depths, this pattern has not been formally addressed. With most natural resource managers focusing mainly on controlling lionfish population in shallower areas (<30 m), the refuge provided for lionfish by deeper waters is often overlooked in techniques regarding lionfish containment. Understanding habitat utilization patterns of larger, older and more fecund lionfish might shed light on ways to maximize the efficiency of lionfish culling programs. In this study, we analyze data from thirteen locations in the Mexican Caribbean to determine the pattern between lionfish size, age, and the depth at which they live. We explore two possible explanations for the observed patterns: ontogenetic migration and harvesting effects. Across all locations, a general presence of larger lionfish in deeper areas is clearly shown, confirming previous observations. Not enough evidence was found to suggest that the pattern is caused by culling, however, a likely explanation is ontogenetic migration, indicated by the presence of older lionfish in deeper waters shown when comparing age and depth. Results from this study highlight the importance of focusing management strategies on deeper waters to maximize effectiveness of lionfish removal programs.
 
-# Intro
-intro here
+# Introduction
+Invasive species are widely recognized as a major threat to the health and biodiversity of marine ecosystems. Yet, less than 16% of marine ecosystems are free of non-native species (Molnar et al. 2008). Non-native species tend to upset the balance of the ecosystem they invade by displacing the native populations and disrupting ecological processes, with associated costs of up to 120 billion USD annually (Pimentel et al. 2005). Lionfish, an invasive species originating in the Indo-Pacific and spreading throughout the western Atlantic, are no exception. Lionfish impact invaded areas by reducing native populations to levels of endangerment through predation and competition, affecting the health of coral reefs and of the overall ecosystem (Green et al. 2012).
+The success of lionfish management programs lies in understanding habitat utilization patterns. Current invasion management programs are limited by the depth at which divers are able to go to, thus, removal efforts focus solely on the shallow areas that lionfish populate. Previously, lionfish were believed to live only in shallow waters, but recently, observations of lionfish spotted in deeper areas have surfaced (Gress et al. 2017; Andradi-Brown et al. 2017). More importantly, anecdotal evidence suggests that larger and more fecund organisms live in deeper waters. However, no formal quantification of this pattern has been reported. This poses a major problem in the effectiveness of the programs, as larger lionfish remain safe from culling programs. As a result, lionfish spread rapidly, facilitated by their lack of predators, opportunistic feeding habits, and fecundity. Without more attention being focused on deeper waters, lionfish will continue to cause destruction within marine ecosystems. However, with research being done on habitat utilization of lionfish, management programs may be able to minimize the impact lionfish have on marine ecosystems by focusing their efforts on deeper waters.
+This study evaluates the relationship between lionfish size and the depth at which they live, and poses the hypotheses of ontogenetic migration and shallow-biased culling as possible explanations for the size-depth relationship. Analyzing this relationship before and after culling does not provide a comprehensive analysis, as the lengths of the lionfish are not exact, however, it is suggested by the data that ontogenetic migration may be one of the larger factors which are causing the pattern. Our focal analysis on the Mexican Caribbean may help us better understand how we can target lionfish and eliminate them from non-native areas.
+
 
 # Methods
-code for loading coastline
-code to create map
-map
+```{r}
+library(rnaturalearth)
+library(tidyverse)
+library(cowplot)
+```
+
+```{r}
+mex <- ne_countries(continent = c("north america"), scale = "medium", returnclass = "sf")
+```
+
+```{r}
+ls <- ggplot(data = mex) +
+  geom_sf() +
+  lims(x = c(-110, -70), y = c(5, 35)) + #specify x and y limits
+  geom_point(x = -87, # longitude of study area
+             y = 20.35, # latitude of study area
+             shape = 22, # square (?pch)
+             size = 5, # square size
+             color = "red" # square color
+             )
+```
+
+```{r}
+data_mexico <- read_csv("RMP_lionfish.csv") %>% 
+  select(location, longitude, latitude) %>% 
+  distinct()
+
+data_mexico
+```
+```{r}
+coast <- sf::read_sf(dsn = "spatial/coastline", layer = "coastline")
+```
+ 
+```{r}
+ss <- ggplot(data = coast) +
+  geom_sf() +
+  lims(x = c(-87.5, -87.15), y = c(20.35, 20.6)) +
+  geom_point(data = data_mexico, mapping = aes(x = longitude, y = latitude, color = location), size = 1.7)
+```
+ 
+```{r}
+plot_grid(ls, ss, labels = "AUTO", ncol = 1)
+```
+
+
 
 # Results
-graphs, tables, etc.
+```{r}
+Linf = 420
+T0 = 0.11
+K = -0.88
+library(tidyverse)
+```
+
+```{r}
+fish <- read_csv("RMP_lionfish.csv", col_types = cols()) %>% 
+  select(id, site, location, latitude, longitude, depth, temperature, total_length, total_weight) %>%
+  mutate(age = T0 + (log(1-(total_length/Linf))/K), 
+         logTL = log(total_length),
+         logDepth = log(depth),
+         logAge = log(age),
+         logTW = log(total_weight)) %>%
+  distinct()
+```
+
+## Lionfish Length and Depth
+```{r}
+ggplot(data= fish, mapping = aes(x = total_length, y = depth)) +
+  geom_point(mapping = aes(fill = location), size = 4, alpha = 0.8, shape = 21) +
+  theme_bw() +
+  labs(x="Length (mm)", y="Depth (m)") +
+  ggtitle("Lionfish Length-Depth Relationship") +
+  geom_smooth(method = "lm")
+```
+
+##Lionfish Weight and Depth
+```{r}
+ggplot(data=fish, mapping = aes(x=total_weight, y=depth)) +
+  geom_point(mapping = aes(fill = location), size = 4, alpha = 0.7, shape = 21) +
+  theme_bw() +
+  labs(x="Weight (g)", y = "Depth (m)") +
+  ggtitle("Lionfish Weight-Depth Relationship") +
+  geom_smooth(method = "lm")
+```
+
+## Lionfish Age and Depth
+```{r}
+ggplot(data=fish, mapping = aes(x=age, y=depth)) +
+  geom_point(mapping = aes(fill = location), size = 4, alpha = 0.7, shape = 21) +
+  theme_bw() +
+  labs(x="Age (years)", y = "Depth (m)") +
+  ggtitle("Lionfish Age-Depth Relationship") +
+  geom_smooth(method = "lm")
+```
+
+## Table
+```{r, results = "asis"}
+library(stargazer)
+model2 <- lm(total_length ~ depth, data = fish)
+model3 <- lm(total_weight ~ depth, data = fish)
+model6 <- lm(age ~ depth, data = fish)
+stargazer(model2, model3, model6, type = "html")
+```
+
 
 # Discussion and Conclusion
 
