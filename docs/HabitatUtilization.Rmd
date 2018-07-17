@@ -1,0 +1,28 @@
+---
+title: "Lionfish Habitat Utilization"
+author: "Alisha Naidu"
+date: "7/17/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Abstract
+abstract here
+
+# Intro
+intro here
+
+# Methods
+code for loading coastline
+code to create map
+map
+
+# Results
+graphs, tables, etc.
+
+# Discussion and Conclusion
+
+# References
