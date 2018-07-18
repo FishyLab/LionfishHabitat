@@ -1,14 +1,15 @@
 ---
-title: Ontogenetic Migration and Habitat Selection by Invasive Lionfish
-author: "Alisha Naidu"
-date: "last updated on `r Sys.Date()`"
+title: <center>Ontogenetic Migration and Habitat Selection by Invasive Lionfish</center>
 output: 
   html_document:
       code_folding: hide
       toc_float: yes
       toc: yes
 ---
-
+<center>Alisha Naidu^1^, Juan Carlos Villaseñor-Derbez^2^  </center>
+<center>^1^*Lynbrook High School, 1280 Johnson Avenue, San Jose, CA 95129*  </center>
+<center>*alisha415naidu@gmail.com*  </center>
+<center>^2^*Bren School of Environmental Science and Management, University of California, Santa Barbara, CA 93106*  </center>
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -17,8 +18,10 @@ knitr::opts_chunk$set(echo = TRUE)
 The introduction of invasive lionfish into the Western Atlantic has greatly reduced local fish populations through predation, representing a major threat to native organisms and ecosystem managers alike. Although observational evidence suggests that lionfish size increases with depths, this pattern has not been formally addressed. With most natural resource managers focusing mainly on controlling lionfish population in shallower areas (<30 m), the refuge provided for lionfish by deeper waters is often overlooked in techniques regarding lionfish containment. Understanding habitat utilization patterns of larger, older and more fecund lionfish might shed light on ways to maximize the efficiency of lionfish culling programs. In this study, we analyze data from thirteen locations in the Mexican Caribbean to determine the pattern between lionfish size, age, and the depth at which they live. We explore two possible explanations for the observed patterns: ontogenetic migration and harvesting effects. Across all locations, a general presence of larger lionfish in deeper areas is clearly shown, confirming previous observations. Not enough evidence was found to suggest that the pattern is caused by culling, however, a likely explanation is ontogenetic migration, indicated by the presence of older lionfish in deeper waters shown when comparing age and depth. Results from this study highlight the importance of focusing management strategies on deeper waters to maximize effectiveness of lionfish removal programs.
 
 # Introduction
-Invasive species are widely recognized as a major threat to the health and biodiversity of marine ecosystems. Yet, less than 16% of marine ecosystems are free of non-native species (Molnar et al. 2008). Non-native species tend to upset the balance of the ecosystem they invade by displacing the native populations and disrupting ecological processes, with associated costs of up to 120 billion USD annually (Pimentel et al. 2005). Lionfish, an invasive species originating in the Indo-Pacific and spreading throughout the western Atlantic, are no exception. Lionfish impact invaded areas by reducing native populations to levels of endangerment through predation and competition, affecting the health of coral reefs and of the overall ecosystem (Green et al. 2012).
-The success of lionfish management programs lies in understanding habitat utilization patterns. Current invasion management programs are limited by the depth at which divers are able to go to, thus, removal efforts focus solely on the shallow areas that lionfish populate. Previously, lionfish were believed to live only in shallow waters, but recently, observations of lionfish spotted in deeper areas have surfaced (Gress et al. 2017; Andradi-Brown et al. 2017). More importantly, anecdotal evidence suggests that larger and more fecund organisms live in deeper waters. However, no formal quantification of this pattern has been reported. This poses a major problem in the effectiveness of the programs, as larger lionfish remain safe from culling programs. As a result, lionfish spread rapidly, facilitated by their lack of predators, opportunistic feeding habits, and fecundity. Without more attention being focused on deeper waters, lionfish will continue to cause destruction within marine ecosystems. However, with research being done on habitat utilization of lionfish, management programs may be able to minimize the impact lionfish have on marine ecosystems by focusing their efforts on deeper waters.
+Invasive species are widely recognized as a major threat to the health and biodiversity of marine ecosystems. Yet, less than 16% of marine ecosystems are free of non-native species (Molnar et al. 2008). Non-native species tend to upset the balance of the ecosystem they invade by displacing the native populations and disrupting ecological processes, with associated costs of up to 120 billion USD annually (Pimentel et al. 2005). Lionfish, an invasive species originating in the Indo-Pacific and spreading throughout the western Atlantic, are no exception. Lionfish impact invaded areas by reducing native populations to levels of endangerment through predation and competition, affecting the health of coral reefs and of the overall ecosystem (Green et al. 2012).  
+<br>
+The success of lionfish management programs lies in understanding habitat utilization patterns. Current invasion management programs are limited by the depth at which divers are able to go to, thus, removal efforts focus solely on the shallow areas that lionfish populate. Previously, lionfish were believed to live only in shallow waters, but recently, observations of lionfish spotted in deeper areas have surfaced (Gress et al. 2017; Andradi-Brown et al. 2017). More importantly, anecdotal evidence suggests that larger and more fecund organisms live in deeper waters. However, no formal quantification of this pattern has been reported. This poses a major problem in the effectiveness of the programs, as larger lionfish remain safe from culling programs. As a result, lionfish spread rapidly, facilitated by their lack of predators, opportunistic feeding habits, and fecundity. Without more attention being focused on deeper waters, lionfish will continue to cause destruction within marine ecosystems. However, with research being done on habitat utilization of lionfish, management programs may be able to minimize the impact lionfish have on marine ecosystems by focusing their efforts on deeper waters.  
+<br>
 This study evaluates the relationship between lionfish size and the depth at which they live, and poses the hypotheses of ontogenetic migration and shallow-biased culling as possible explanations for the size-depth relationship. Analyzing this relationship before and after culling does not provide a comprehensive analysis, as the lengths of the lionfish are not exact, however, it is suggested by the data that ontogenetic migration may be one of the larger factors which are causing the pattern. Our focal analysis on the Mexican Caribbean may help us better understand how we can target lionfish and eliminate them from non-native areas.
 
 
@@ -131,3 +134,15 @@ stargazer(model2, model3, model6, type = "html")
 # Discussion and Conclusion
 
 # References
+Andradi-Brown, D.A., Vermeij, M.J.A., Slattery, M., Lesser, M., Bejarano, I., Appeldoorn, R., Goodbody-Gringley, G., Chequer, A.D., Pitt, J.M., Eddy, C., Smith, S.R., Brokovich, E., Pinheiro, H.T., Jessup, M.E., Shepherd, B., Rocha, L.A., Curtis-Quick, J., Eyal, G., Noyes, T.J., Rogers, A.D. and Exton, D.A. 2017. Large-scale invasion of western Atlantic mesophotic reefs by lionfish potentially undermines culling-based management. Biological invasions 19(3), pp. 939–954.  
+<br>
+Green, S.J., Akins, J.L., Maljković, A. and Côté, I.M. 2012. Invasive lionfish drive Atlantic coral reef fish declines. Plos One 7(3), p. e32596.  
+<br>
+Gress, E., Andradi-Brown, D.A., Woodall, L., Schofield, P.J., Stanley, K. and Rogers, A.D. 2017. Lionfish (Pterois spp.) invade the upper-bathyal zone in the western Atlantic. PeerJ 5, p. e3683.  
+<br>
+Johnson, E.G. and Swenarton, M.K. 2016. Age, growth and population structure of invasive lionfish (Pterois volitans/miles) in northeast Florida using a length-based, age-structured population model. PeerJ 4, p. e2730.  
+<br>
+Molnar, J.L., Gamboa, R.L., Revenga, C. and Spalding, M.D. 2008. Assessing the global threat of invasive species to marine biodiversity. Frontiers in Ecology and the Environment 6(9), pp. 485–492.  
+<br>
+Pimentel, D., Zuniga, R. and Morrison, D. 2005. Update on the environmental and economic costs associated with alien-invasive species in the United States. Ecological Economics 52(3), pp. 273–288.  
+<br>
