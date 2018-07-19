@@ -10,12 +10,13 @@ output:
 <center>^1^*Lynbrook High School, 1280 Johnson Avenue, San Jose, CA 95129*  </center>
 <center>*alisha415naidu@gmail.com*  </center>
 <center>^2^*Bren School of Environmental Science and Management, University of California, Santa Barbara, CA 93106*  </center>
+<br>
+
+<h3 align = "center">Abstract</h3>
+<p align = "left"> The introduction of invasive lionfish into the Western Atlantic has greatly reduced local fish populations through predation, representing a major threat to native organisms and ecosystem managers alike. Although observational evidence suggests that lionfish size increases with depths, this pattern has not been formally addressed. With most natural resource managers focusing mainly on controlling lionfish population in shallower areas (<30 m), the refuge provided for lionfish by deeper waters is often overlooked in techniques regarding lionfish containment. Understanding habitat utilization patterns of larger, older and more fecund lionfish might shed light on ways to maximize the efficiency of lionfish culling programs. In this study, we analyze data from thirteen locations in the Mexican Caribbean to determine the pattern between lionfish size, age, and the depth at which they live. We explore two possible explanations for the observed patterns: ontogenetic migration and harvesting effects. Across all locations, a general presence of larger lionfish in deeper areas is clearly shown, confirming previous observations. Not enough evidence was found to suggest that the pattern is caused by culling, however, a likely explanation is ontogenetic migration, indicated by the presence of older lionfish in deeper waters shown when comparing age and depth. Results from this study highlight the importance of focusing management strategies on deeper waters to maximize effectiveness of lionfish removal programs. </p>
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-# Abstract
-The introduction of invasive lionfish into the Western Atlantic has greatly reduced local fish populations through predation, representing a major threat to native organisms and ecosystem managers alike. Although observational evidence suggests that lionfish size increases with depths, this pattern has not been formally addressed. With most natural resource managers focusing mainly on controlling lionfish population in shallower areas (<30 m), the refuge provided for lionfish by deeper waters is often overlooked in techniques regarding lionfish containment. Understanding habitat utilization patterns of larger, older and more fecund lionfish might shed light on ways to maximize the efficiency of lionfish culling programs. In this study, we analyze data from thirteen locations in the Mexican Caribbean to determine the pattern between lionfish size, age, and the depth at which they live. We explore two possible explanations for the observed patterns: ontogenetic migration and harvesting effects. Across all locations, a general presence of larger lionfish in deeper areas is clearly shown, confirming previous observations. Not enough evidence was found to suggest that the pattern is caused by culling, however, a likely explanation is ontogenetic migration, indicated by the presence of older lionfish in deeper waters shown when comparing age and depth. Results from this study highlight the importance of focusing management strategies on deeper waters to maximize effectiveness of lionfish removal programs.
 
 # Introduction
 Invasive species are widely recognized as a major threat to the health and biodiversity of marine ecosystems. Yet, less than 16% of marine ecosystems are free of non-native species (Molnar et al. 2008). Non-native species tend to upset the balance of the ecosystem they invade by displacing the native populations and disrupting ecological processes, with associated costs of up to 120 billion USD annually (Pimentel et al. 2005). Lionfish, an invasive species originating in the Indo-Pacific and spreading throughout the western Atlantic, are no exception. Lionfish impact invaded areas by reducing native populations to levels of endangerment through predation and competition, affecting the health of coral reefs and of the overall ecosystem (Green et al. 2012).  
@@ -62,11 +63,12 @@ coast <- sf::read_sf(dsn = "spatial/coastline", layer = "coastline")
 ```{r}
 ss <- ggplot(data = coast) +
   geom_sf() +
-  lims(x = c(-87.5, -87.15), y = c(20.35, 20.6)) +
-  geom_point(data = data_mexico, mapping = aes(x = longitude, y = latitude, color = location), size = 1.7)
+  geom_point(data = data_mexico, mapping = aes(x = longitude, y = latitude, color = location), size = 1.7) +
+  scale_x_continuous(breaks = seq(-87.5, -87.2, by = .1), limits = c(-87.35, -87.15)) +
+  lims(y = c(20.375, 20.53))
 ```
  
-```{r}
+```{r, fig.height=7, fig.width=7}
 plot_grid(ls, ss, labels = "AUTO", ncol = 1)
 ```
 
