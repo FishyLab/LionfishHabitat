@@ -27,6 +27,21 @@ This study evaluates the relationship between lionfish size and the depth at whi
 
 
 # Methods
+<strong>Data Collection</strong>
+<br>
+Our study took place at ten different sites throughout the Mexican Caribbean. We caught 109 lionfish using handheld nets and numbered containers, with no regard to age, size, depth, gender, or other factors. The depth (nearest 0.1 m) and exact location (latitude and longitude) at which they were found were immediately recorded upon capture, and their length (to the nearest 1 mm) and weight (nearest 0.01 g) were measured upon reaching the surface.
+<br>
+To convert the length of the lionfish to the age, we used the length-based von Bertalanffy growth equation and the von Bertalanffy growth parameters (L∞ = 420, K = 0.88, t0 = 0.11) specified for Yucatan (Johnson and Swenarton 2016).
+$$A = t_0 + \frac{log(1-\frac LL_∞)}{-K}$$
+With data for lionfish length, weight, depth, and age, we began the data analysis portion of our research.
+
+<strong>Data Analysis</strong>
+
+Using RStudio, we looked for a pattern between the data by plotting three different graphs: length versus depth, weight versus depth, and age versus depth.
+After creating these graphs, we used linear regressions and Pearson’s correlation to fit a linear model to the graphs of the relationships between size, age, and depth. The stargazer package in R (Hlavac, 2018) was used to create a table displaying the significance of the linear patterns (See Figure #). All data analyses were performed in R Version 3.5.0, using ggplot2 for data visualization (R Core Team, 2018).
+
+After trying to analyze the relationship between size and depth before and after culling of lionfish in the Mexican Caribbean, it was determined that the data collected is insufficient to confirm a pattern of deepening caused by shallow-biased culling. Thus, more research should be done on the effect of culling on the habitat selection of lionfish, with attention being focused on including data from lower depths and larger lionfish to be accurate.
+
 ```{r}
 library(rnaturalearth)
 library(tidyverse)
@@ -150,4 +165,6 @@ Johnson, E.G. and Swenarton, M.K. 2016. Age, growth and population structure of 
 Molnar, J.L., Gamboa, R.L., Revenga, C. and Spalding, M.D. 2008. Assessing the global threat of invasive species to marine biodiversity. Frontiers in Ecology and the Environment 6(9), pp. 485–492.  
 <br>
 Pimentel, D., Zuniga, R. and Morrison, D. 2005. Update on the environmental and economic costs associated with alien-invasive species in the United States. Ecological Economics 52(3), pp. 273–288.  
+<br>
+R Core Team (2018). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
 <br>
