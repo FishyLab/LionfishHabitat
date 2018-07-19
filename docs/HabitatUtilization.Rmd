@@ -77,9 +77,11 @@ coast <- sf::read_sf(dsn = "spatial/coastline", layer = "coastline")
 ```{r}
 ss <- ggplot(data = coast) +
   geom_sf() +
-  geom_point(data = data_mexico, mapping = aes(x = longitude, y = latitude, color = location), size = 1.7) +
+  geom_point(data = data_mexico, mapping = aes(x = longitude, y = latitude, color = location), size = 1.7)+
+  labs(x="Longitude", y="Latitude") +
   scale_x_continuous(breaks = seq(-87.5, -87.2, by = .1), limits = c(-87.35, -87.15)) +
   lims(y = c(20.375, 20.53))
+ss
 ```
  
 ```{r, fig.height=7, fig.width=7}
@@ -112,18 +114,8 @@ fish <- read_csv("RMP_lionfish.csv", col_types = cols()) %>%
 ggplot(data= fish, mapping = aes(x = total_length, y = depth)) +
   geom_point(mapping = aes(fill = location), size = 4, alpha = 0.8, shape = 21) +
   theme_bw() +
-  labs(x="Length (mm)", y="Depth (m)") +
+  labs(x="Length (mm)", y="Depth (m)", fill="Location") +
   ggtitle("Lionfish Length-Depth Relationship") +
-  geom_smooth(method = "lm")
-```
-
-##Lionfish Weight and Depth
-```{r}
-ggplot(data=fish, mapping = aes(x=total_weight, y=depth)) +
-  geom_point(mapping = aes(fill = location), size = 4, alpha = 0.7, shape = 21) +
-  theme_bw() +
-  labs(x="Weight (g)", y = "Depth (m)") +
-  ggtitle("Lionfish Weight-Depth Relationship") +
   geom_smooth(method = "lm")
 ```
 
@@ -132,7 +124,7 @@ ggplot(data=fish, mapping = aes(x=total_weight, y=depth)) +
 ggplot(data=fish, mapping = aes(x=age, y=depth)) +
   geom_point(mapping = aes(fill = location), size = 4, alpha = 0.7, shape = 21) +
   theme_bw() +
-  labs(x="Age (years)", y = "Depth (m)") +
+  labs(x="Age (years)", y = "Depth (m)", fill = "Location") +
   ggtitle("Lionfish Age-Depth Relationship") +
   geom_smooth(method = "lm")
 ```
@@ -141,13 +133,34 @@ ggplot(data=fish, mapping = aes(x=age, y=depth)) +
 ```{r, results = "asis"}
 library(stargazer)
 model2 <- lm(total_length ~ depth, data = fish)
-model3 <- lm(total_weight ~ depth, data = fish)
 model6 <- lm(age ~ depth, data = fish)
-stargazer(model2, model3, model6, type = "html")
+stargazer(model2, model6, type = "html")
 ```
 
 
 # Discussion and Conclusion
+```{r}
+
+depth_vec <- seq(0, 40, by = 5)
+
+# Load data, mutate fecundity (f) and make depth into bins (depth_bin)
+# then group by depth and calculate total egg production
+
+fecundity_data <- read.csv("RMP_lionfish.csv") %>%
+    mutate(f = -58265 + (308.67 * total_length),
+                  depth_bin = findInterval(depth, depth_vec)) %>%
+    group_by(depth_bin) %>%
+    summarize(total_f = sum(f))
+
+# Plot fecundity at depth
+ggplot(data = fecundity_data, mapping = aes(x = depth_bin, y = total_f), size = 4, alpha = 0.8, shape = 21) +
+    geom_point() +
+  theme_bw() +
+  labs(x="Depth", y="Fecundity") +
+  ggtitle("Lionfish Depth-Fecundity Relationship") +
+  geom_smooth(method = "lm")
+```
+
 
 # References
 Andradi-Brown, D.A., Vermeij, M.J.A., Slattery, M., Lesser, M., Bejarano, I., Appeldoorn, R., Goodbody-Gringley, G., Chequer, A.D., Pitt, J.M., Eddy, C., Smith, S.R., Brokovich, E., Pinheiro, H.T., Jessup, M.E., Shepherd, B., Rocha, L.A., Curtis-Quick, J., Eyal, G., Noyes, T.J., Rogers, A.D. and Exton, D.A. 2017. Large-scale invasion of western Atlantic mesophotic reefs by lionfish potentially undermines culling-based management. Biological invasions 19(3), pp. 939–954.  
