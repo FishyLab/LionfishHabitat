@@ -82,7 +82,6 @@ ss <- ggplot(data = coast) +
   labs(x="Longitude", y="Latitude") +
   scale_x_continuous(breaks = seq(-87.5, -87.2, by = .1), limits = c(-87.35, -87.15)) +
   lims(y = c(20.375, 20.53))
-ss
 ```
  
 ```{r, fig.height=7, fig.width=7}
