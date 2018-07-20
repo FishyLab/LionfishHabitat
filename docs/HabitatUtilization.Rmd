@@ -15,7 +15,9 @@ output:
 <h3 align = "center">Abstract</h3>
 <p align = "left"> The introduction of invasive lionfish into the Western Atlantic has greatly reduced local fish populations through predation, representing a major threat to native organisms and ecosystem managers alike. Although observational evidence suggests that lionfish size increases with depths, this pattern has not been formally addressed. Understanding habitat utilization patterns of larger, older and more fecund lionfish might shed light on ways to maximize the efficiency of lionfish culling programs. In this study, we analyzed data from ten locations in the Mexican Caribbean to determine the pattern between lionfish size, age, and the depth at which they live, and explored two possible explanations for the observed patterns: ontogenetic migration and harvesting effects. All locations signified a general presence of larger lionfish in deeper areas, confirming previous observations. Not enough evidence was found to suggest that the pattern is caused by culling. However, a likely explanation is ontogenetic migration, indicated by the presence of older lionfish in deeper waters. Results from this study highlight the importance of focusing management strategies on deeper waters to maximize effectiveness of lionfish removal programs. </p>
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE)
 ```
 
 # Introduction
@@ -29,11 +31,10 @@ This study evaluates the relationship between lionfish size and the depth at whi
 # Methods
 <strong>Data Collection</strong>
 <br>
-Our study took place at ten different sites throughout the Mexican Caribbean. We caught 109 lionfish using handheld nets and numbered containers, with no regard to age, size, depth, gender, or other factors. The depth (nearest 0.1 m) and exact location (latitude and longitude) at which they were found were immediately recorded upon capture, and their length (to the nearest 1 mm) and weight (nearest 0.01 g) were measured upon reaching the surface.
+Our study took place at ten different sites throughout the Mexican Caribbean (See Figure 1). We caught 109 lionfish using handheld nets and numbered containers, with no regard to age, size, depth, gender, or other factors. The depth (nearest 0.1 m) and exact location (latitude and longitude) at which they were found were immediately recorded upon capture, and their total length (to the nearest 1 mm) and total weight (nearest 0.01 g) were measured upon reaching the surface.
 <br>
 To convert the length of the lionfish to the age, we used the length-based von Bertalanffy growth equation and the von Bertalanffy growth parameters (L∞ = 420, K = 0.88, t0 = 0.11) specified for Yucatan (Johnson and Swenarton 2016).
-$$A = t_0 + \frac{log(1-\frac LL_∞)}{-K}$$
-With data for lionfish length, weight, depth, and age, we began the data analysis portion of our research.
+$$A = t_0 + \frac{log(1-\frac L{L_∞})}{-K}$$
 
 <strong>Data Analysis</strong>
 
@@ -61,7 +62,9 @@ ls <- ggplot(data = mex) +
              shape = 22, # square (?pch)
              size = 5, # square size
              color = "red" # square color
-             )
+             ) +
+  labs(x="Longitude", y="Latitude")
+ls
 ```
 
 ```{r}
