@@ -1,23 +1,25 @@
 ---
 title: <center>Ontogenetic Migration and Habitat Selection by Invasive Lionfish</center>
+author: <center>Alisha Naidu^1^, Juan Carlos Villaseñor-Derbez^2^  </center>
+date: <center>^1^*Lynbrook High School, 1280 Johnson Avenue, San Jose, CA 95129*  </center> <center>*alisha415naidu@gmail.com*  </center> <center>^2^*Bren School of Environmental Science and Management, University of California, Santa Barbara, CA 93106*  </center>
+abstract: "The introduction of invasive lionfish into the Western Atlantic has greatly reduced local fish populations through predation, representing a major threat to native organisms and ecosystem managers alike. Although observational evidence suggests that lionfish size increases with depths, this pattern has not been formally addressed. Understanding habitat utilization patterns of larger, older and more fecund lionfish might shed light on ways to maximize the efficiency of lionfish culling programs. In this study, we analyzed data from ten locations in the Mexican Caribbean to determine the pattern between lionfish size, age, and the depth at which they live, and explored two possible explanations for the observed patterns: ontogenetic migration and harvesting effects. All locations signified a general presence of larger lionfish in deeper areas, confirming previous observations. Not enough evidence was found to suggest that the pattern is caused by culling. However, a likely explanation is ontogenetic migration, indicated by the presence of older lionfish in deeper waters. Results from this study highlight the importance of focusing management strategies on deeper waters to maximize effectiveness of lionfish removal programs."
 output: 
   html_document:
       code_folding: hide
       toc_float: yes
       toc: yes
 ---
-<center>Alisha Naidu^1^, Juan Carlos Villaseñor-Derbez^2^  </center>
-<center>^1^*Lynbrook High School, 1280 Johnson Avenue, San Jose, CA 95129*  </center>
-<center>*alisha415naidu@gmail.com*  </center>
-<center>^2^*Bren School of Environmental Science and Management, University of California, Santa Barbara, CA 93106*  </center>
-<br>
 
-<h3 align = "center">Abstract</h3>
-<p align = "left"> The introduction of invasive lionfish into the Western Atlantic has greatly reduced local fish populations through predation, representing a major threat to native organisms and ecosystem managers alike. Although observational evidence suggests that lionfish size increases with depths, this pattern has not been formally addressed. Understanding habitat utilization patterns of larger, older and more fecund lionfish might shed light on ways to maximize the efficiency of lionfish culling programs. In this study, we analyzed data from ten locations in the Mexican Caribbean to determine the pattern between lionfish size, age, and the depth at which they live, and explored two possible explanations for the observed patterns: ontogenetic migration and harvesting effects. All locations signified a general presence of larger lionfish in deeper areas, confirming previous observations. Not enough evidence was found to suggest that the pattern is caused by culling. However, a likely explanation is ontogenetic migration, indicated by the presence of older lionfish in deeper waters. Results from this study highlight the importance of focusing management strategies on deeper waters to maximize effectiveness of lionfish removal programs. </p>
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,
                       message = FALSE,
                       warning = FALSE)
+
+suppressPackageStartupMessages({
+  library(rnaturalearth)
+  library(tidyverse)
+  library(cowplot)
+})
 ```
 
 # Introduction
@@ -29,31 +31,20 @@ This study evaluates the relationship between lionfish size and the depth at whi
 
 
 # Methods
-<strong>Data Collection</strong>
-<br>
-Our study took place at ten different sites throughout the Mexican Caribbean (See Figure 1). We caught 109 lionfish using handheld nets and numbered containers, with no regard to age, size, depth, gender, or other factors. The depth (nearest 0.1 m) and exact location (latitude and longitude) at which they were found were immediately recorded upon capture, and their total length (to the nearest 1 mm) and total weight (nearest 0.01 g) were measured upon reaching the surface.
-<br>
-To convert the length of the lionfish to the age, we used the length-based von Bertalanffy growth equation and the von Bertalanffy growth parameters (L∞ = 420, K = 0.88, t0 = 0.11) specified for Yucatan (Johnson and Swenarton 2016).
-$$A = t_0 + \frac{log(1-\frac L{L_∞})}{-K}$$
 
-<strong>Data Analysis</strong>
+**Data Collection**
 
-Using RStudio, we looked for a pattern between the data by plotting three different graphs: length versus depth, weight versus depth, and age versus depth.
-After creating these graphs, we used linear regressions and Pearson’s correlation to fit a linear model to the graphs of the relationships between size, age, and depth. The stargazer package in R (Hlavac, 2018) was used to create a table displaying the significance of the linear patterns (See Figure #). All data analyses were performed in R Version 3.5.0, using ggplot2 for data visualization (R Core Team, 2018).
+Our study took place at ten different sites throughout the Mexican Caribbean (Figure 1). We caught 109 lionfish using handheld nets and numbered containers, with no regard to age, size, depth, gender, or other factors. The depth (nearest 0.1 m) and exact location (latitude and longitude) at which they were found were immediately recorded upon capture, and their total length (TL to the nearest 1 mm) and total weight (TW nearest 0.01 g) were measured upon reaching the surface.
 
-While trying to analyze the relationship between size and depth before and after culling of lionfish in the Mexican Caribbean, it was determined that the data collected is insufficient to confirm a pattern of deepening caused by shallow-biased culling. Thus, more research should be done on the effect of culling on the habitat selection of lionfish, with attention being focused on including data from lower depths and larger lionfish to be accurate.
-
-```{r}
-library(rnaturalearth)
-library(tidyverse)
-library(cowplot)
-```
+We converted TL to age with the von Bertalanffy growth equation:
+$$A = t_0 + \frac{log(1-\frac {L}{L_{\infty}})}{-K}$$
+Parameters ($L_{\infty} = 420$, $K = 0.88$, $t0 = 0.11$) for Yucatan were obtained from Johnson and Swenarton (2016).
 
 ```{r}
 mex <- ne_countries(continent = c("north america"), scale = "medium", returnclass = "sf")
 ```
 
-```{r}
+```{r, include = F}
 ls <- ggplot(data = mex) +
   geom_sf() +
   lims(x = c(-110, -70), y = c(5, 35)) + #specify x and y limits
@@ -68,14 +59,16 @@ ls
 ```
 
 ```{r}
-data_mexico <- read_csv("RMP_lionfish.csv") %>% 
+data_mexico <- read_csv(here::here("data", "RMP_lionfish.csv")) %>% 
   select(location, longitude, latitude) %>% 
   distinct()
 
-data_mexico
+data_mexico %>% 
+  knitr::kable()
 ```
+
 ```{r}
-coast <- sf::read_sf(dsn = "spatial/coastline", layer = "coastline")
+coast <- sf::read_sf(dsn = here::here("data", "spatial", "coastline"), layer = "coastline")
 ```
  
 ```{r}
@@ -91,7 +84,13 @@ ss <- ggplot(data = coast) +
 plot_grid(ls, ss, labels = "AUTO", ncol = 1)
 ```
 
+**Data Analysis**
 
+We evaluated the relationship that Depth had to lionfish TL, TW, and age with Pearson's correlation coefficient. Uppon determining the existance of positive correlations, we used linear regressions to fit a linear model relating these variables.
+
+Additionally, we calculated batch fecundity ($f$; the total number of eggs produced as a function of TL) for each lionfish as $f = 308.67 \times TL -58265$ following Gardner et al., (2015). We grouped lionfish in 5-meter depth intervals, and estimated total egg production for each bin to show the invasion management implications of ontogenic habitat utilization.
+
+While trying to analyze the relationship between size and depth before and after culling of lionfish in the Mexican Caribbean, it was determined that the post-culling data collected were insufficient to confirm a pattern of deepening caused by shallow-biased culling. Thus, more research should be done on the effect of culling on the habitat selection of lionfish, with attention being focused on including data from lower depths and larger lionfish to be accurate. All data analyses were performed in R Version 3.5.0, using ggplot2 for data visualization (R Core Team, 2018). The stargazer package in R (Hlavac, 2018) was used to create tables with regression coefficients (See Figure #).
 
 # Results
 ```{r}
@@ -102,7 +101,7 @@ library(tidyverse)
 ```
 
 ```{r}
-fish <- read_csv("RMP_lionfish.csv", col_types = cols()) %>% 
+fish <- read_csv(here::here("data", "RMP_lionfish.csv"), col_types = cols()) %>% 
   select(id, site, location, latitude, longitude, depth, temperature, total_length, total_weight) %>%
   mutate(age = T0 + (log(1-(total_length/Linf))/K), 
          logTL = log(total_length),
@@ -112,32 +111,40 @@ fish <- read_csv("RMP_lionfish.csv", col_types = cols()) %>%
   distinct()
 ```
 
-## Lionfish Length and Depth
-```{r}
-ggplot(data= fish, mapping = aes(x = total_length, y = depth)) +
+```{r, fig.width = 6.5, fig.height = 12}
+length_depth <- ggplot(data= fish, mapping = aes(x = total_length, y = depth)) +
   geom_point(mapping = aes(fill = location), size = 4, alpha = 0.8, shape = 21) +
   theme_bw() +
-  labs(x="Length (mm)", y="Depth (m)", fill="Location") +
-  ggtitle("Lionfish Length-Depth Relationship") +
-  geom_smooth(method = "lm")
-```
+  labs(x="Total Length (mm)", y="Depth (m)", fill="Location") +
+  geom_smooth(method = "lm") +
+  theme(legend.position = "none")
 
-## Lionfish Age and Depth
-```{r}
-ggplot(data=fish, mapping = aes(x=age, y=depth)) +
+weight_depth <- ggplot(data=fish, mapping = aes(x=log10(total_weight), y=depth)) +
+  geom_point(mapping = aes(fill = location), size = 4, alpha = 0.7, shape = 21) +
+  theme_bw() +
+  labs(x=expression(log[10](Total~Weight~(gr))), y = "Depth (m)", fill = "Location") +
+  geom_smooth(method = "lm") +
+  theme(legend.position = c(0.2, 0.77),
+        legend.background = element_blank()) +
+  guides(fill = guide_legend(ncol = 2))
+
+age_depth <- ggplot(data=fish, mapping = aes(x=age, y=depth)) +
   geom_point(mapping = aes(fill = location), size = 4, alpha = 0.7, shape = 21) +
   theme_bw() +
   labs(x="Age (years)", y = "Depth (m)", fill = "Location") +
-  ggtitle("Lionfish Age-Depth Relationship") +
-  geom_smooth(method = "lm")
+  geom_smooth(method = "lm") +
+  theme(legend.position = "none")
+
+cowplot::plot_grid(length_depth, weight_depth, age_depth, ncol = 1, labels = "AUTO")
 ```
 
 ## Table
 ```{r, results = "asis"}
 library(stargazer)
-model2 <- lm(total_length ~ depth, data = fish)
-model6 <- lm(age ~ depth, data = fish)
-stargazer(model2, model6, type = "html")
+model1 <- lm(depth ~ total_length, data = fish)
+model2 <- lm(depth ~ total_weight, data = fish)
+model3 <- lm(depth ~ age, data = fish)
+stargazer(model1, model2, model3, type = "html")
 ```
 
 
@@ -149,15 +156,15 @@ depth_vec <- seq(0, 40, by = 5)
 # Load data, mutate fecundity (f) and make depth into bins (depth_bin)
 # then group by depth and calculate total egg production
 
-fecundity_data <- read.csv("RMP_lionfish.csv") %>%
-    mutate(f = -58265 + (308.67 * total_length),
-                  depth_bin = findInterval(depth, depth_vec)) %>%
-    group_by(depth_bin) %>%
-    summarize(total_f = sum(f))
+fecundity_data <- read.csv(here::here("data", "RMP_lionfish.csv")) %>%
+  mutate(f = -58265 + (308.67 * total_length),
+         depth_bin = findInterval(depth, depth_vec)) %>%
+  group_by(depth_bin) %>%
+  summarize(total_f = sum(f))
 
 # Plot fecundity at depth
 ggplot(data = fecundity_data, mapping = aes(x = depth_bin, y = total_f), size = 4, alpha = 0.8, shape = 21) +
-    geom_point() +
+  geom_point() +
   theme_bw() +
   labs(x="Depth", y="Fecundity") +
   ggtitle("Lionfish Depth-Fecundity Relationship") +
@@ -168,20 +175,22 @@ ggplot(data = fecundity_data, mapping = aes(x = depth_bin, y = total_f), size = 
 # References
 Accadia, T., Acernese, F., Alshourbagy, M., Amico, P., Zhang, Z., et al. 2012. Virgo: a laser interferometer to detect gravitational waves. Journal of Instrumentation 7(03), pp. P03012–P03012.
 
-Andradi-Brown, D.A., Vermeij, M.J.A., Slattery, M., Lesser, M., Bejarano, I., Appeldoorn, R., Goodbody-Gringley, G., Chequer, A.D., Pitt, J.M., Eddy, C., Smith, S.R., Brokovich, E., Pinheiro, H.T., Jessup, M.E., Shepherd, B., Rocha, L.A., Curtis-Quick, J., Eyal, G., Noyes, T.J., Rogers, A.D. and Exton, D.A. 2017. Large-scale invasion of western Atlantic mesophotic reefs by lionfish potentially undermines culling-based management. Biological invasions 19(3), pp. 939–954.  
-<br>
+Andradi-Brown, D.A., Vermeij, M.J.A., Slattery, M., Lesser, M., Bejarano, I., Appeldoorn, R., Goodbody-Gringley, G., Chequer, A.D., Pitt, J.M., Eddy, C., Smith, S.R., Brokovich, E., Pinheiro, H.T., Jessup, M.E., Shepherd, B., Rocha, L.A., Curtis-Quick, J., Eyal, G., Noyes, T.J., Rogers, A.D. and Exton, D.A. 2017. Large-scale invasion of western Atlantic mesophotic reefs by lionfish potentially undermines culling-based management. Biological invasions 19(3), pp. 939–954.
+
+Gardner, P. G., Frazer, T. K., Jacoby, C. A., & Yanong, R. P. (2015). Reproductive biology of invasive lionfish (Pterois spp.). Frontiers in Marine Science, 2, 7.
+
 Green, S.J., Akins, J.L., Maljković, A. and Côté, I.M. 2012. Invasive lionfish drive Atlantic coral reef fish declines. Plos One 7(3), p. e32596.  
-<br>
+
 Gress, E., Andradi-Brown, D.A., Woodall, L., Schofield, P.J., Stanley, K. and Rogers, A.D. 2017. Lionfish (Pterois spp.) invade the upper-bathyal zone in the western Atlantic. PeerJ 5, p. e3683.  
-<br>
+
 Hlavac, Marek (2018). stargazer: Well-Formatted Regression and Summary Statistics Tables.
  R package version 5.2.2. https://CRAN.R-project.org/package=stargazer
-<br>
+
 Johnson, E.G. and Swenarton, M.K. 2016. Age, growth and population structure of invasive lionfish (Pterois volitans/miles) in northeast Florida using a length-based, age-structured population model. PeerJ 4, p. e2730.  
-<br>
+
 Molnar, J.L., Gamboa, R.L., Revenga, C. and Spalding, M.D. 2008. Assessing the global threat of invasive species to marine biodiversity. Frontiers in Ecology and the Environment 6(9), pp. 485–492.  
-<br>
+
 Pimentel, D., Zuniga, R. and Morrison, D. 2005. Update on the environmental and economic costs associated with alien-invasive species in the United States. Ecological Economics 52(3), pp. 273–288.  
-<br>
+
 R Core Team (2018). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
-<br>
+
