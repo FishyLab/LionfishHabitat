@@ -38,7 +38,7 @@ Our study took place at ten different sites throughout the Mexican Caribbean (Fi
 
 We converted TL to age with the von Bertalanffy growth equation:
 $$A = t_0 + \frac{log(1-\frac {L}{L_{\infty}})}{-K}$$
-Parameters ($L_{\infty} = 420$, $K = 0.88$, $t0 = 0.11$) for Yucatan were obtained from Johnson and Swenarton (2016).
+Parameters ($L_{\infty} = 420$, $K = 0.88$, $t_0 = 0.11$) for Yucatan were obtained from Johnson and Swenarton (2016).
 
 ```{r}
 mex <- ne_countries(continent = c("north america"), scale = "medium", returnclass = "sf")
@@ -55,7 +55,6 @@ ls <- ggplot(data = mex) +
              color = "red" # square color
              ) +
   labs(x="Longitude", y="Latitude")
-ls
 ```
 
 ```{r}
@@ -86,9 +85,9 @@ plot_grid(ls, ss, labels = "AUTO", ncol = 1)
 
 **Data Analysis**
 
-We evaluated the relationship that Depth had to lionfish TL, TW, and age with Pearson's correlation coefficient. Uppon determining the existance of positive correlations, we used linear regressions to fit a linear model relating these variables.
+We evaluated the relationship of depth to total length, total weight, and age with Pearson's correlation coefficient. Upon determining the existence of positive correlations, we used linear regressions to fit a linear model relating these variables.
 
-Additionally, we calculated batch fecundity ($f$; the total number of eggs produced as a function of TL) for each lionfish as $f = 308.67 \times TL -58265$ following Gardner et al., (2015). We grouped lionfish in 5-meter depth intervals, and estimated total egg production for each bin to show the invasion management implications of ontogenic habitat utilization.
+Additionally, we calculated batch fecundity ($f$; the total number of eggs produced as a function of TL for each lionfish as $f = 308.67 \times TL -58265$ following Gardner et al., (2015). We grouped lionfish in 5-meter depth intervals, and estimated total egg production for each bin to show the invasion management implications of ontogenic habitat utilization.
 
 While trying to analyze the relationship between size and depth before and after culling of lionfish in the Mexican Caribbean, it was determined that the post-culling data collected were insufficient to confirm a pattern of deepening caused by shallow-biased culling. Thus, more research should be done on the effect of culling on the habitat selection of lionfish, with attention being focused on including data from lower depths and larger lionfish to be accurate. All data analyses were performed in R Version 3.5.0, using ggplot2 for data visualization (R Core Team, 2018). The stargazer package in R (Hlavac, 2018) was used to create tables with regression coefficients (See Figure #).
 
@@ -136,6 +135,20 @@ age_depth <- ggplot(data=fish, mapping = aes(x=age, y=depth)) +
   theme(legend.position = "none")
 
 cowplot::plot_grid(length_depth, weight_depth, age_depth, ncol = 1, labels = "AUTO")
+```
+
+```{r}
+lm(logTL ~ logDepth, data = fish) %>%
+  summary()
+```
+```{r}
+lm(logTW ~ logDepth, data = fish) %>%
+  summary()
+```
+
+```{r}
+lm(logAge ~ logDepth, data = fish) %>%
+  summary()
 ```
 
 ## Table
