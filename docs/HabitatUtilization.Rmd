@@ -83,6 +83,8 @@ ss <- ggplot(data = coast) +
 plot_grid(ls, ss, labels = "AUTO", ncol = 1)
 ```
 
+FIG. 1. Sites of data collection: Canones, Castillo, Cuevitas, Islas, Paamul, Paraiso, Pared, Pedregal, Santos, Tzimin-Ha.
+
 **Data Analysis**
 
 We evaluated the relationship of depth to total length, total weight, and age with Pearson's correlation coefficient. Upon determining the existence of positive correlations, we used linear regressions to fit a linear model relating these variables.
@@ -92,6 +94,18 @@ Additionally, we calculated batch fecundity ($f$; the total number of eggs produ
 While trying to analyze the relationship between size and depth before and after culling of lionfish in the Mexican Caribbean, it was determined that the post-culling data collected were insufficient to confirm a pattern of deepening caused by shallow-biased culling. Thus, more research should be done on the effect of culling on the habitat selection of lionfish, with attention being focused on including data from lower depths and larger lionfish to be accurate. All data analyses were performed in R Version 3.5.0, using ggplot2 for data visualization (R Core Team, 2018). The stargazer package in R (Hlavac, 2018) was used to create tables with regression coefficients (See Figure #).
 
 # Results
+**Lionfish Distribution**
+
+All lionfish were found in the shallow and mesophotic regions of locations in the Mexican Caribbean, from depths as shallow as 5 meters to as deep as 38 meters. Total length, total weight, depth, and location were all recorded and analyzed to explore the habitat utilization patterns of lionfish. Previously, there were reported observations on increased lionfish size with depth, and we confirmed this statement with our data, along with finding variables to model the pattern. We found positive correlations when comparing depth with total length and weight, confirming a presence of larger lionfish in deeper waters (Figure 2A and 2B). Our conclusion of bigger lionfish in deeper waters was found to be statistically significant (p < 0.02) according to Pearson’s correlation (Table 1).
+
+**Ontogenetic Migration**
+
+We explored multiple hypotheses which accounted for this pattern of larger lionfish in deeper waters. 
+Ontogenetic migration was our leading explanation, which we analyzed by creating a plot of age versus depth. This graph had a strong positive slope, signifying a pattern of older lionfish living in deeper waters (Figure 2C). The F Statistic for age versus depth indicated that ontogenetic migration accounted for 20.2% of the presence of larger lionfish living in deeper depths, demonstrating that this relationship was not by random, rather, there was a real pattern which was statistically significant. We also looked into shallow biased culling as an explanation for the presence of larger lionfish living in deeper waters. However, with the data collected, we were unable to perform any accurate analyses, as there was not enough data including a wider variety of lionfish. Thus, more research should be done on the effect of culling on lionfish habitat utilization including larger lionfish living at deeper depths.
+
+**Lionfish Fecundity**
+
+We also examined the relationship between lionfish size and fecundity. Larger lionfish have been hypothesized to produce more offspring (Andradi-Brown et al. 2017), however, this has not been formally looked into yet. We calculated the fecundity of lionfish with Gardner’s equation and compared it with total length. We found that as the total length of a lionfish increases, the fecundity also goes up (Figure 3), confirming the hypothesis posed by Andradi-Brown. The implications of our findings circle around the improvement of lionfish management programs. Because larger lionfish are living in deeper waters, and can produce more offspring, we theorized that this may be a leading reason for why the invasive lionfish population is continuing to thrive in invaded areas and cause harm, as they are shielded from culling programs which focus solely on shallow waters.
 ```{r}
 Linf = 420
 T0 = 0.11
@@ -137,31 +151,22 @@ age_depth <- ggplot(data=fish, mapping = aes(x=age, y=depth)) +
 cowplot::plot_grid(length_depth, weight_depth, age_depth, ncol = 1, labels = "AUTO")
 ```
 
-```{r}
-lm(logTL ~ logDepth, data = fish) %>%
-  summary()
-```
-```{r}
-lm(logTW ~ logDepth, data = fish) %>%
-  summary()
-```
+FIG. 2. Comparisons between depth and total length (A), total weight (B), and age (C). Each circle represents one lionfish collected from the various locations, and the lines are representative of the linear models defining the pattern between depth, size, and age.
 
-```{r}
-lm(logAge ~ logDepth, data = fish) %>%
-  summary()
-```
-
-## Table
+### Pearson's Correlation
 ```{r, results = "asis"}
 library(stargazer)
 model1 <- lm(depth ~ total_length, data = fish)
 model2 <- lm(depth ~ total_weight, data = fish)
 model3 <- lm(depth ~ age, data = fish)
-stargazer(model1, model2, model3, type = "html")
+stargazer(model1, model2, model3, type = "html", single.row = TRUE)
 ```
+
+TABLE 1. Pearson’s correlation showing coefficients for linear models for comparing depth with total length, total weight, and age. All models are positively correlated and are statistically significant (p<0.01).
 
 
 # Discussion and Conclusion
+
 ```{r}
 
 depth_vec <- seq(0, 40, by = 5)
@@ -184,6 +189,7 @@ ggplot(data = fecundity_data, mapping = aes(x = depth_bin, y = total_f), size = 
   geom_smooth(method = "lm")
 ```
 
+FIG. 3. Comparison of depth and fecundity of lionfish, with fecundity obtained by calculation. Positive correlation of increased depth with increased fecundity shown.
 
 # References
 Accadia, T., Acernese, F., Alshourbagy, M., Amico, P., Zhang, Z., et al. 2012. Virgo: a laser interferometer to detect gravitational waves. Journal of Instrumentation 7(03), pp. P03012–P03012.
