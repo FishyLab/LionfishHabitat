@@ -2,7 +2,7 @@
 title: <center>Ontogenetic Migration and Habitat Selection by Invasive Lionfish</center>
 author: <center>Alisha Naidu^1^, Juan Carlos Villaseñor-Derbez^2^  </center>
 date: <center>^1^*Lynbrook High School, 1280 Johnson Avenue, San Jose, CA 95129*  </center> <center>*alisha415naidu@gmail.com*  </center> <center>^2^*Bren School of Environmental Science and Management, University of California, Santa Barbara, CA 93106*  </center>
-abstract: "The introduction of invasive lionfish into the Western Atlantic has greatly reduced local fish populations through predation, representing a major threat to native organisms and ecosystem managers alike. Although observational evidence suggests that lionfish size increases with depths, this pattern has not been formally addressed. Understanding habitat utilization patterns of larger, older and more fecund lionfish might shed light on ways to maximize the efficiency of lionfish culling programs. In this study, we analyzed data from ten locations in the Mexican Caribbean to determine the pattern between lionfish size, age, and the depth at which they live, and explored two possible explanations for the observed patterns: ontogenetic migration and harvesting effects. All locations signified a general presence of larger lionfish in deeper areas, confirming previous observations. Not enough evidence was found to suggest that the pattern is caused by culling. However, a likely explanation is ontogenetic migration, indicated by the presence of older lionfish in deeper waters. Results from this study highlight the importance of focusing management strategies on deeper waters to maximize effectiveness of lionfish removal programs."
+abstract: "The introduction of invasive lionfish into the Western Atlantic represents a major threat to native organisms and ecosystem managers alike. Although observational evidence suggests that lionfish size increases with depths, this pattern has not been formally addressed. Understanding habitat utilization patterns of larger, older and more fecund lionfish might help improve management programs. In this study, we analyzed data from the Mexican Caribbean to determine the correlation between lionfish size, age, and depth, and explored two possible explanations for the observed patterns: ontogenetic migration and harvesting effects. All locations signified a presence of larger lionfish in deeper areas, confirming previous observations. Not enough evidence was found to suggest culling as the cause. However, a likely explanation is ontogenetic migration, indicated by older lionfish living in deeper waters. Results from this study highlight the importance of shifting management strategies to focus on deeper waters to maximize effectiveness of lionfish removal programs."
 output: 
   html_document:
       code_folding: hide
@@ -23,16 +23,17 @@ suppressPackageStartupMessages({
 ```
 
 # Introduction
-Invasive species are widely recognized as a major threat to the health and biodiversity of marine ecosystems. Yet, less than 16% of marine ecosystems are free of non-native species (Molnar et al. 2008). Non-native species tend to upset the balance of the ecosystem they invade by displacing the native populations and disrupting ecological processes, with associated costs of up to 120 billion USD annually (Pimentel et al. 2005). Lionfish, an invasive species originating in the Indo-Pacific and spreading throughout the western Atlantic, are no exception. Lionfish impact invaded areas by reducing native populations to levels of endangerment through predation and competition, affecting the health of coral reefs and of the overall ecosystem (Green et al. 2012). The effectiveness of lionfish management programs should be considered very important, with these programs being the main way of ensuring the minimization of lionfish impact in the future.
+Invasive species are widely recognized as a major threat to the health and biodiversity of marine ecosystems. Yet, less than 16% of marine ecosystems are free of non-native species (Molnar et al. 2008). Invasive species tend to upset the balance of the ecosystem they invade by displacing the native populations and disrupting ecological processes, with associated costs of up to 120 billion USD annually (Pimentel et al. 2005). Lionfish, an invasive species originating in the Indo-Pacific and spreading throughout the western Atlantic, are no exception. Lionfish impact invaded areas by reducing native populations to levels of endangerment through predation and competition, affecting the health of coral reefs and of the overall ecosystem (Green et al. 2012). The effectiveness of lionfish management programs are crucial to the preservation of marine ecosystems, as these are programs the main way of ensuring the minimization of lionfish impact in the future.
 
-The success of these lionfish management programs lies in understanding habitat utilization patterns. However, current invasion management programs are limited by the depth at which divers are able to go to, thus, removal efforts focus solely on the shallow areas that lionfish populate. Previously, lionfish were believed to live only in shallow waters, but recently, observations of lionfish spotted in deeper areas have surfaced (Gress et al. 2017; Andradi-Brown et al. 2017). More importantly, anecdotal evidence suggests that larger and more fecund organisms live in deeper waters. However, no formal quantification of this pattern has been reported. This poses a major problem in the effectiveness of the programs, as larger lionfish remain safe from culling programs. As a result, larger lionfish living in deeper waters spread rapidly, facilitated by their lack of predators, opportunistic feeding habits, and fecundity (Gardner et al. 2015). With most lionfish management programs focusing mainly on controlling lionfish populations in shallower waters (< 30 m),  the refuge provided for lionfish by deeper waters is often overlooked in techniques regarding lionfish containment. Without more attention being focused on deeper waters, lionfish will continue to cause destruction within marine ecosystems. However, with research being done on habitat utilization of lionfish, management programs may be able to decrease the harm lionfish cause to marine ecosystems by focusing their efforts on deeper waters.
+The success of these lionfish management programs lies in understanding habitat utilization patterns. However, current invasion management programs are limited by the depth at which divers are able to go to, thus, removal efforts focus solely on the shallow areas that lionfish populate. Previously, lionfish were believed to live only in shallow waters, but recently, observations of lionfish spotted in deeper areas have surfaced (Gress et al. 2017; Andradi-Brown et al. 2017). More importantly, anecdotal evidence suggests that larger and more fecund organisms live in deeper waters. However, no formal quantification of this pattern has been reported. This poses a major problem to the success of the programs, as larger lionfish remain safe from culling programs. As a result, larger lionfish living in deeper waters spread rapidly, facilitated by their lack of predators, opportunistic feeding habits, and fecundity (Gardner et al. 2015). With most lionfish management programs focusing mainly on controlling lionfish populations in shallower waters (< 30m),  the refuge provided for lionfish by deeper waters is often overlooked in techniques regarding lionfish containment. Without more attention being focused on deeper waters, lionfish will continue to cause destruction within marine ecosystems, particularly to coral reefs and native species. However, with research being done on habitat utilization of lionfish, management programs may be able to decrease the harm lionfish cause to marine ecosystems by focusing their efforts on deeper waters.
 
 This study evaluates the relationship between lionfish size and the depth at which they live, and poses the hypotheses of ontogenetic migration and shallow-biased culling as possible explanations for the size-depth relationship. Analyzing this relationship before and after culling does not provide a comprehensive analysis, as the lengths of the lionfish are not exact, however, it is suggested by the data that ontogenetic migration may be one of the larger factors which are causing the pattern. Our focal analysis on the Mexican Caribbean may help us better understand how we can target lionfish and eliminate them from non-native areas.
 
 
+
 # Methods
 
-**Data Collection**
+*Data Collection*
 
 Our study took place at ten different sites throughout the Mexican Caribbean (Figure 1). We caught 109 lionfish using handheld nets and numbered containers, with no regard to age, size, depth, gender, or other factors. The depth (nearest 0.1 m) and exact location (latitude and longitude) at which they were found were immediately recorded upon capture, and their total length (TL to the nearest 1 mm) and total weight (TW nearest 0.01 g) were measured upon reaching the surface.
 
@@ -84,28 +85,19 @@ plot_grid(ls, ss, labels = "AUTO", ncol = 1)
 ```
 
 FIG. 1. Sites of data collection: Canones, Castillo, Cuevitas, Islas, Paamul, Paraiso, Pared, Pedregal, Santos, Tzimin-Ha.
+<br>
+<br>
+*Data Analysis*
 
-**Data Analysis**
+We evaluated the relationship of depth to total length, total weight, and age with Pearson’s correlation coefficient. Upon determining the existence of positive correlations, we used linear regressions to fit a linear model relating these variables.
 
-We evaluated the relationship of depth to total length, total weight, and age with Pearson's correlation coefficient. Upon determining the existence of positive correlations, we used linear regressions to fit a linear model relating these variables.
+Additionally, we calculated batch fecundity (f; the total number of eggs produced as a function of TL (total length) for each lionfish following Gardner et al., (2015):
+$$f = 308.67 \times TL -58265$$
 
-Additionally, we calculated batch fecundity ($f$; the total number of eggs produced as a function of TL for each lionfish as $f = 308.67 \times TL -58265$ following Gardner et al., (2015). We grouped lionfish in 5-meter depth intervals, and estimated total egg production for each bin to show the invasion management implications of ontogenic habitat utilization.
+We grouped lionfish in 5-meter length intervals, and estimated total egg production for each bin to show the invasion management implications of ontogenetic habitat utilization.
 
-While trying to analyze the relationship between size and depth before and after culling of lionfish in the Mexican Caribbean, it was determined that the post-culling data collected were insufficient to confirm a pattern of deepening caused by shallow-biased culling. Thus, more research should be done on the effect of culling on the habitat selection of lionfish, with attention being focused on including data from lower depths and larger lionfish to be accurate. All data analyses were performed in R Version 3.5.0, using ggplot2 for data visualization (R Core Team, 2018). The stargazer package in R (Hlavac, 2018) was used to create tables with regression coefficients (See Figure #).
+While trying to analyze the relationship between size and depth before and after culling of lionfish in the Mexican Caribbean, it was determined that the post-culling data collected was insufficient to confirm a pattern of deepening caused by shallow-biased culling. Thus, more research should be done on the effect of culling on the habitat selection of lionfish, with attention being focused on including data from lower depths and larger lionfish to be accurate. All data analyses were performed in R Version 3.5.0, using ggplot2 for data visualization (R Core Team, 2018). The stargazer package in R (Hlavac, 2018) was used to create tables with regression coefficients.
 
-# Results
-**Lionfish Distribution**
-
-All lionfish were found in the shallow and mesophotic regions of locations in the Mexican Caribbean, from depths as shallow as 5 meters to as deep as 38 meters. Total length, total weight, depth, and location were all recorded and analyzed to explore the habitat utilization patterns of lionfish. Previously, there were reported observations on increased lionfish size with depth, and we confirmed this statement with our data, along with finding variables to model the pattern. We found positive correlations when comparing depth with total length and weight, confirming a presence of larger lionfish in deeper waters (Figure 2A and 2B). Our conclusion of bigger lionfish in deeper waters was found to be statistically significant (p < 0.02) according to Pearson’s correlation (Table 1).
-
-**Ontogenetic Migration**
-
-We explored multiple hypotheses which accounted for this pattern of larger lionfish in deeper waters. 
-Ontogenetic migration was our leading explanation, which we analyzed by creating a plot of age versus depth. This graph had a strong positive slope, signifying a pattern of older lionfish living in deeper waters (Figure 2C). The F Statistic for age versus depth indicated that ontogenetic migration accounted for 20.2% of the presence of larger lionfish living in deeper depths, demonstrating that this relationship was not by random, rather, there was a real pattern which was statistically significant. We also looked into shallow biased culling as an explanation for the presence of larger lionfish living in deeper waters. However, with the data collected, we were unable to perform any accurate analyses, as there was not enough data including a wider variety of lionfish. Thus, more research should be done on the effect of culling on lionfish habitat utilization including larger lionfish living at deeper depths.
-
-**Lionfish Fecundity**
-
-We also examined the relationship between lionfish size and fecundity. Larger lionfish have been hypothesized to produce more offspring (Andradi-Brown et al. 2017), however, this has not been formally looked into yet. We calculated the fecundity of lionfish with Gardner’s equation and compared it with total length. We found that as the total length of a lionfish increases, the fecundity also goes up (Figure 3), confirming the hypothesis posed by Andradi-Brown. The implications of our findings circle around the improvement of lionfish management programs. Because larger lionfish are living in deeper waters, and can produce more offspring, we theorized that this may be a leading reason for why the invasive lionfish population is continuing to thrive in invaded areas and cause harm, as they are shielded from culling programs which focus solely on shallow waters.
 ```{r}
 Linf = 420
 T0 = 0.11
@@ -123,8 +115,8 @@ fish <- read_csv(here::here("data", "RMP_lionfish.csv"), col_types = cols()) %>%
          logTW = log(total_weight)) %>%
   distinct()
 ```
-### Pearson's Correlation
-```{r, results = "asis"}
+
+```{r, results = "hide"}
 library(stargazer)
 model1 <- lm(depth ~ total_length, data = fish)
 p_value <- broom::glance(model1)$p.value
@@ -137,6 +129,12 @@ p_value3 <- broom::glance(model3)$p.value
 
 stargazer(model1, model2, model3, type = "html", single.row = TRUE)
 ```
+
+# Results and Discussion
+*Lionfish Distribution*
+
+All lionfish were found in the shallow and mesophotic regions of locations in the Mexican Caribbean, from depths as shallow as 5 meters to as deep as 38 meters. Total length, total weight, depth, and location were all recorded and analyzed to explore the habitat utilization patterns of lionfish. Previously, there were reported observations on increased lionfish size with depth, and we confirmed this statement with our data, along with finding variables to model the pattern. We found positive correlations when comparing depth with total length and weight, confirming a presence of larger lionfish in deeper waters (Figures 2A and 2B). Our conclusion of bigger lionfish in deeper waters was found to be statistically significant (p < 0.01) according to Pearson’s correlation (Table 1).
+
 ```{r, fig.width = 6.5, fig.height = 12}
 
 length_depth <- ggplot(data= fish, mapping = aes(x = total_length, y = depth)) +
@@ -168,7 +166,7 @@ age_depth <- ggplot(data=fish, mapping = aes(x=age, y=depth)) +
 cowplot::plot_grid(length_depth, weight_depth, age_depth, ncol = 1, labels = "AUTO")
 ```
 
-FIG. 2. Comparisons between depth and total length (A), total weight (B), and age (C). Each circle represents one lionfish collected from the various locations, and the lines are representative of the linear models defining the pattern between depth, size, and age.
+FIG. 2. Comparisons between depth and total length (A), total weight (B), and age (C). Each circle represents one lionfish collected from the various locations, and the lines are representative of the linear models defining the pattern between depth, size, and age. P values as shown in Table 1 are displayed in bottom left corner of each graph.
 
 ### Pearson's Correlation
 ```{r, results = "asis"}
@@ -184,11 +182,17 @@ p_value3 <- broom::glance(model3)$p.value
 
 stargazer(model1, model2, model3, type = "html", single.row = TRUE)
 ```
+<br>
+TABLE 1. Pearson’s correlation showing coefficient estimates for linear models for comparing depth with total length (1), total weight (2), and age (3). All models are positively correlated and are statistically significant (p<0.01). Numbers in parentheses indicate standard error.
 
-TABLE 1. Pearson’s correlation showing coefficients for linear models for comparing depth with total length, total weight, and age. All models are positively correlated and are statistically significant (p<0.01).
 
+*Ontogenetic Migration*
 
-# Discussion and Conclusion
+We explored multiple hypotheses which accounted for this pattern of larger lionfish in deeper waters. Ontogenetic migration was our leading explanation, which we analyzed  by creating a plot of age versus depth. The graph had a strong positive slope, signifying a pattern of older lionfish living in deeper waters (Figure 2C). The F Statistic for age versus depth indicated that ontogenetic migration accounted for 20.2% of the presence of larger lionfish living in deeper depths, demonstrating that this relationship was not by random, rather, there was a real pattern which was statistically significant. We also looked into shallow-biased culling as an explanation for the presence of larger lionfish living in deeper waters by comparing size and depth of lionfish before and after culling. The pattern of larger lionfish in deeper waters existed before culling occured in the area, leading us to hypothesize that though shallow-biased culling did not cause the pattern, it may have strengthened it. However, with the data collected, we were unable to perform any accurate analyses, as there was not enough data including a wider variety of lionfish. Thus, more research should be done on the effect of culling on lionfish habitat utilization including larger lionfish living at deeper depths.
+
+*Lionfish Fecundity*
+
+We also examined the relationship between lionfish size and fecundity. Larger lionfish have been hypothesized to produce more offspring (Andradi-Brown et al. 2017), however, this has not been formally looked into yet. We calculated the fecundity of lionfish with Gardner’s equation and compared it with total length. We found that as the total length of a lionfish increases, the fecundity also goes up, confirming the hypothesis posed by Andradi-Brown. More importantly, this suggested that because length increased with fecundity, depth also increased with fecundity (Figure 3). The implications of our findings circle around the improvement of lionfish management programs. Because larger lionfish are living in deeper waters, and can produce more offspring, we theorized that this may be a leading reason for why the invasive lionfish population is continuing to thrive in invaded areas and cause harm, as they are shielded from culling programs which focus solely  on shallow waters.
 
 ```{r}
 # Load data, mutate fecundity (f) and make depth into bins (depth_bin)
@@ -206,7 +210,11 @@ ggplot(data = fecundity_data, mapping = aes(x = depth, y = f)) +
   geom_smooth(method = "lm")
 ```
 
-FIG. 3. Comparison of length and fecundity of lionfish, with fecundity obtained by calculation. Positive correlation of increased length with increased fecundity shown.
+FIG. 3. Comparison of depth and fecundity of lionfish, with fecundity obtained by calculation. Depth is combined into intervals of 5. Positive correlation of increased depth with increased fecundity shown.
+
+# Conclusion
+
+This study formally addresses the relationship between size and depth of lionfish in the Mexican Caribbean for the first time, along with finding supporting evidence for ontogenetic migration of lionfish. We emphasize the growing danger of lionfish living in deeper waters by confirming the increased fecundity of larger lionfish. Further studies should be done with deeper depths to see if the positive correlation between size and depth continues, and should explore shallow-biased culling with a wider range of data as a possible contribution to the pattern between size and depth. With the results from our research, we highlight the need for pushing the focus of lionfish management programs to deeper waters in order to cull the larger and more fecund lionfish, thus more effectively controlling the invasive lionfish population to help preserve our precious marine ecosystems.
 
 # References
 Accadia, T., Acernese, F., Alshourbagy, M., Amico, P., Zhang, Z., et al. 2012. Virgo: a laser interferometer to detect gravitational waves. Journal of Instrumentation 7(03), pp. P03012–P03012.
