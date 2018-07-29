@@ -123,30 +123,47 @@ fish <- read_csv(here::here("data", "RMP_lionfish.csv"), col_types = cols()) %>%
          logTW = log(total_weight)) %>%
   distinct()
 ```
+### Pearson's Correlation
+```{r, results = "asis"}
+library(stargazer)
+model1 <- lm(depth ~ total_length, data = fish)
+p_value <- broom::glance(model1)$p.value
 
+model2 <- lm(depth ~ total_weight, data = fish)
+p_value2 <- broom::glance(model2)$p.value
+
+model3 <- lm(depth ~ age, data = fish)
+p_value3 <- broom::glance(model3)$p.value
+
+stargazer(model1, model2, model3, type = "html", single.row = TRUE)
+```
 ```{r, fig.width = 6.5, fig.height = 12}
+
 length_depth <- ggplot(data= fish, mapping = aes(x = total_length, y = depth)) +
-  geom_point(mapping = aes(fill = location), size = 4, alpha = 0.8, shape = 21) +
+  geom_point(mapping = aes(fill = location), size = 3, alpha = 0.8, shape = 21) +
   theme_bw() +
   labs(x="Total Length (mm)", y="Depth (m)", fill="Location") +
   geom_smooth(method = "lm") +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  geom_label(geom = "text", x = 275,  y = 7, label = p_value)
 
 weight_depth <- ggplot(data=fish, mapping = aes(x=log10(total_weight), y=depth)) +
-  geom_point(mapping = aes(fill = location), size = 4, alpha = 0.7, shape = 21) +
+  geom_point(mapping = aes(fill = location), size = 3, alpha = 0.7, shape = 21) +
   theme_bw() +
   labs(x=expression(log[10](Total~Weight~(gr))), y = "Depth (m)", fill = "Location") +
   geom_smooth(method = "lm") +
   theme(legend.position = c(0.2, 0.77),
         legend.background = element_blank()) +
-  guides(fill = guide_legend(ncol = 2))
+  guides(fill = guide_legend(ncol = 2)) +
+  geom_label(geom = "text", x = 2.2,  y = 7, label = p_value2)
 
 age_depth <- ggplot(data=fish, mapping = aes(x=age, y=depth)) +
-  geom_point(mapping = aes(fill = location), size = 4, alpha = 0.7, shape = 21) +
+  geom_point(mapping = aes(fill = location), size = 3, alpha = 0.7, shape = 21) +
   theme_bw() +
   labs(x="Age (years)", y = "Depth (m)", fill = "Location") +
   geom_smooth(method = "lm") +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+    geom_label(geom = "text", x = 1.45,  y = 7, label = p_value3)
 
 cowplot::plot_grid(length_depth, weight_depth, age_depth, ncol = 1, labels = "AUTO")
 ```
@@ -157,8 +174,14 @@ FIG. 2. Comparisons between depth and total length (A), total weight (B), and ag
 ```{r, results = "asis"}
 library(stargazer)
 model1 <- lm(depth ~ total_length, data = fish)
+p_value <- broom::glance(model1)$p.value
+
 model2 <- lm(depth ~ total_weight, data = fish)
+p_value2 <- broom::glance(model2)$p.value
+
 model3 <- lm(depth ~ age, data = fish)
+p_value3 <- broom::glance(model3)$p.value
+
 stargazer(model1, model2, model3, type = "html", single.row = TRUE)
 ```
 
@@ -168,28 +191,22 @@ TABLE 1. Pearson’s correlation showing coefficients for linear models for comp
 # Discussion and Conclusion
 
 ```{r}
-
-depth_vec <- seq(0, 40, by = 5)
-
 # Load data, mutate fecundity (f) and make depth into bins (depth_bin)
 # then group by depth and calculate total egg production
 
 fecundity_data <- read.csv(here::here("data", "RMP_lionfish.csv")) %>%
-  mutate(f = -58265 + (308.67 * total_length),
-         depth_bin = findInterval(depth, depth_vec)) %>%
-  group_by(depth_bin) %>%
-  summarize(total_f = sum(f))
-
+  mutate(f = -58265 + (308.67 * total_length)) %>% 
+           filter(f > 0)
 # Plot fecundity at depth
-ggplot(data = fecundity_data, mapping = aes(x = depth_bin, y = total_f), size = 4, alpha = 0.8, shape = 21) +
-  geom_point() +
+ggplot(data = fecundity_data, mapping = aes(x = depth, y = f)) +
+  geom_point(size = 3) +
   theme_bw() +
-  labs(x="Depth", y="Fecundity") +
+  labs(x="Depth (m)", y="Fecundity") +
   ggtitle("Lionfish Depth-Fecundity Relationship") +
   geom_smooth(method = "lm")
 ```
 
-FIG. 3. Comparison of depth and fecundity of lionfish, with fecundity obtained by calculation. Positive correlation of increased depth with increased fecundity shown.
+FIG. 3. Comparison of length and fecundity of lionfish, with fecundity obtained by calculation. Positive correlation of increased length with increased fecundity shown.
 
 # References
 Accadia, T., Acernese, F., Alshourbagy, M., Amico, P., Zhang, Z., et al. 2012. Virgo: a laser interferometer to detect gravitational waves. Journal of Instrumentation 7(03), pp. P03012–P03012.
